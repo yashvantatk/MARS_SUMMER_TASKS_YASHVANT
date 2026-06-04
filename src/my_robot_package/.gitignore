@@ -1,0 +1,15 @@
+build/
+install/
+log/
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+
+# Ignore OS junk files
+.DS_Store
+Thumbs.db
+
+# Ignore code editor settings
+.vscode/
+.idea/

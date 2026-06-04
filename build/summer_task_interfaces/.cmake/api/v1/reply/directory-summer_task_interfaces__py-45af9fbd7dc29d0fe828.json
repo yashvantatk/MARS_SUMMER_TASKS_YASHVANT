@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "summer_task_interfaces__py",
+		"source" : "/home/yashvant/ros2_ws/build/summer_task_interfaces/summer_task_interfaces__py"
+	}
+}

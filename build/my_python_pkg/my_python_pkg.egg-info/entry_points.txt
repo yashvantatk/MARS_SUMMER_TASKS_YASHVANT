@@ -1,0 +1,6 @@
+[console_scripts]
+py_client = my_python_pkg.rover_client:main
+py_pub = my_python_pkg.rover_pub:main
+py_service = my_python_pkg.rover_service:main
+py_sub = my_python_pkg.rover_sub:main
+

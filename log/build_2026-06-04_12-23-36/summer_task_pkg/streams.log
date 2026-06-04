@@ -1,0 +1,47 @@
+[0.591s] Invoking command in '/home/yashvant/ros2_ws/src/summer_task_pkg': PYTHONPATH=/home/yashvant/ros2_ws/build/summer_task_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/yashvant/ros2_ws/install/summer_task_pkg/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/summer_task_pkg build --build-base /home/yashvant/ros2_ws/build/summer_task_pkg/build install --record /home/yashvant/ros2_ws/build/summer_task_pkg/install.log --single-version-externally-managed install_data
+[0.737s] running egg_info
+[0.737s] creating ../../build/summer_task_pkg/summer_task_pkg.egg-info
+[0.737s] writing ../../build/summer_task_pkg/summer_task_pkg.egg-info/PKG-INFO
+[0.737s] writing dependency_links to ../../build/summer_task_pkg/summer_task_pkg.egg-info/dependency_links.txt
+[0.737s] writing entry points to ../../build/summer_task_pkg/summer_task_pkg.egg-info/entry_points.txt
+[0.738s] writing requirements to ../../build/summer_task_pkg/summer_task_pkg.egg-info/requires.txt
+[0.738s] writing top-level names to ../../build/summer_task_pkg/summer_task_pkg.egg-info/top_level.txt
+[0.738s] writing manifest file '../../build/summer_task_pkg/summer_task_pkg.egg-info/SOURCES.txt'
+[0.739s] reading manifest file '../../build/summer_task_pkg/summer_task_pkg.egg-info/SOURCES.txt'
+[0.739s] writing manifest file '../../build/summer_task_pkg/summer_task_pkg.egg-info/SOURCES.txt'
+[0.739s] running build
+[0.739s] running build_py
+[0.739s] creating /home/yashvant/ros2_ws/build/summer_task_pkg/build
+[0.739s] creating /home/yashvant/ros2_ws/build/summer_task_pkg/build/lib
+[0.739s] creating /home/yashvant/ros2_ws/build/summer_task_pkg/build/lib/summer_task_pkg
+[0.739s] copying summer_task_pkg/circle_patrol_server.py -> /home/yashvant/ros2_ws/build/summer_task_pkg/build/lib/summer_task_pkg
+[0.739s] copying summer_task_pkg/__init__.py -> /home/yashvant/ros2_ws/build/summer_task_pkg/build/lib/summer_task_pkg
+[0.739s] copying summer_task_pkg/circle_patrol_client.py -> /home/yashvant/ros2_ws/build/summer_task_pkg/build/lib/summer_task_pkg
+[0.739s] copying summer_task_pkg/collision_avoidance_node.py -> /home/yashvant/ros2_ws/build/summer_task_pkg/build/lib/summer_task_pkg
+[0.740s] running install
+[0.741s] running install_lib
+[0.741s] creating /home/yashvant/ros2_ws/install/summer_task_pkg/lib/python3.10/site-packages/summer_task_pkg
+[0.741s] copying /home/yashvant/ros2_ws/build/summer_task_pkg/build/lib/summer_task_pkg/circle_patrol_server.py -> /home/yashvant/ros2_ws/install/summer_task_pkg/lib/python3.10/site-packages/summer_task_pkg
+[0.742s] copying /home/yashvant/ros2_ws/build/summer_task_pkg/build/lib/summer_task_pkg/__init__.py -> /home/yashvant/ros2_ws/install/summer_task_pkg/lib/python3.10/site-packages/summer_task_pkg
+[0.742s] copying /home/yashvant/ros2_ws/build/summer_task_pkg/build/lib/summer_task_pkg/circle_patrol_client.py -> /home/yashvant/ros2_ws/install/summer_task_pkg/lib/python3.10/site-packages/summer_task_pkg
+[0.743s] copying /home/yashvant/ros2_ws/build/summer_task_pkg/build/lib/summer_task_pkg/collision_avoidance_node.py -> /home/yashvant/ros2_ws/install/summer_task_pkg/lib/python3.10/site-packages/summer_task_pkg
+[0.743s] byte-compiling /home/yashvant/ros2_ws/install/summer_task_pkg/lib/python3.10/site-packages/summer_task_pkg/circle_patrol_server.py to circle_patrol_server.cpython-310.pyc
+[0.744s] byte-compiling /home/yashvant/ros2_ws/install/summer_task_pkg/lib/python3.10/site-packages/summer_task_pkg/__init__.py to __init__.cpython-310.pyc
+[0.744s] byte-compiling /home/yashvant/ros2_ws/install/summer_task_pkg/lib/python3.10/site-packages/summer_task_pkg/circle_patrol_client.py to circle_patrol_client.cpython-310.pyc
+[0.744s] byte-compiling /home/yashvant/ros2_ws/install/summer_task_pkg/lib/python3.10/site-packages/summer_task_pkg/collision_avoidance_node.py to collision_avoidance_node.cpython-310.pyc
+[0.745s] running install_data
+[0.745s] creating /home/yashvant/ros2_ws/install/summer_task_pkg/share/ament_index
+[0.745s] creating /home/yashvant/ros2_ws/install/summer_task_pkg/share/ament_index/resource_index
+[0.745s] creating /home/yashvant/ros2_ws/install/summer_task_pkg/share/ament_index/resource_index/packages
+[0.745s] copying resource/summer_task_pkg -> /home/yashvant/ros2_ws/install/summer_task_pkg/share/ament_index/resource_index/packages
+[0.745s] copying package.xml -> /home/yashvant/ros2_ws/install/summer_task_pkg/share/summer_task_pkg
+[0.745s] creating /home/yashvant/ros2_ws/install/summer_task_pkg/share/summer_task_pkg/launch
+[0.745s] copying launch/avoidance_launch.py -> /home/yashvant/ros2_ws/install/summer_task_pkg/share/summer_task_pkg/launch
+[0.746s] running install_egg_info
+[0.746s] Copying ../../build/summer_task_pkg/summer_task_pkg.egg-info to /home/yashvant/ros2_ws/install/summer_task_pkg/lib/python3.10/site-packages/summer_task_pkg-0.0.0-py3.10.egg-info
+[0.746s] running install_scripts
+[0.759s] Installing circle_patrol_client script to /home/yashvant/ros2_ws/install/summer_task_pkg/lib/summer_task_pkg
+[0.760s] Installing circle_patrol_server script to /home/yashvant/ros2_ws/install/summer_task_pkg/lib/summer_task_pkg
+[0.760s] Installing collision_avoidance_node script to /home/yashvant/ros2_ws/install/summer_task_pkg/lib/summer_task_pkg
+[0.760s] writing list of installed files to '/home/yashvant/ros2_ws/build/summer_task_pkg/install.log'
+[0.783s] Invoked command in '/home/yashvant/ros2_ws/src/summer_task_pkg' returned '0': PYTHONPATH=/home/yashvant/ros2_ws/build/summer_task_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/yashvant/ros2_ws/install/summer_task_pkg/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/summer_task_pkg build --build-base /home/yashvant/ros2_ws/build/summer_task_pkg/build install --record /home/yashvant/ros2_ws/build/summer_task_pkg/install.log --single-version-externally-managed install_data

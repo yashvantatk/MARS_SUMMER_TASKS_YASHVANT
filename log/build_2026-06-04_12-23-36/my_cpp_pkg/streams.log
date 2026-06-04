@@ -1,0 +1,73 @@
+[0.016s] Invoking command in '/home/yashvant/ros2_ws/build/my_cpp_pkg': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/yashvant/ros2_ws/src/my_cpp_pkg -DCMAKE_INSTALL_PREFIX=/home/yashvant/ros2_ws/install/my_cpp_pkg
+[0.189s] -- The C compiler identification is GNU 11.4.0
+[0.196s] -- The CXX compiler identification is GNU 11.4.0
+[0.207s] -- Detecting C compiler ABI info
+[0.281s] -- Detecting C compiler ABI info - done
+[0.287s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.288s] -- Detecting C compile features
+[0.288s] -- Detecting C compile features - done
+[0.291s] -- Detecting CXX compiler ABI info
+[0.371s] -- Detecting CXX compiler ABI info - done
+[0.382s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.382s] -- Detecting CXX compile features
+[0.382s] -- Detecting CXX compile features - done
+[0.389s] -- Found ament_cmake: 1.3.14 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.527s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[0.633s] -- Found rclcpp: 16.0.19 (/opt/ros/humble/share/rclcpp/cmake)
+[0.671s] -- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.677s] -- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.683s] -- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.697s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.716s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.756s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.758s] -- Found rmw_fastrtps_cpp: 6.2.10 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[0.858s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[0.884s] -- Found FastRTPS: /opt/ros/humble/include  
+[0.913s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.920s] -- Looking for pthread.h
+[0.991s] -- Looking for pthread.h - found
+[0.991s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[1.064s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[1.066s] -- Found Threads: TRUE  
+[1.111s] -- Found ament_lint_auto: 0.12.15 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[1.166s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[1.166s] -- Configured cppcheck include dirs: 
+[1.166s] -- Configured cppcheck exclude dirs and/or files: 
+[1.166s] -- Added test 'lint_cmake' to check CMake code style
+[1.166s] -- Added test 'uncrustify' to check C / C++ code style
+[1.167s] -- Configured uncrustify additional arguments: 
+[1.167s] -- Added test 'xmllint' to check XML markup files
+[1.167s] -- Configuring done
+[1.174s] -- Generating done
+[1.177s] -- Build files have been written to: /home/yashvant/ros2_ws/build/my_cpp_pkg
+[1.184s] Invoked command in '/home/yashvant/ros2_ws/build/my_cpp_pkg' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/yashvant/ros2_ws/src/my_cpp_pkg -DCMAKE_INSTALL_PREFIX=/home/yashvant/ros2_ws/install/my_cpp_pkg
+[1.185s] Invoking command in '/home/yashvant/ros2_ws/build/my_cpp_pkg': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/yashvant/ros2_ws/build/my_cpp_pkg -- -j12 -l12
+[1.228s] [ 25%] [32mBuilding CXX object CMakeFiles/cpp_pub.dir/src/rover_pub.cpp.o[0m
+[1.230s] [ 50%] [32mBuilding CXX object CMakeFiles/cpp_sub.dir/src/rover_sub.cpp.o[0m
+[4.486s] [ 75%] [32m[1mLinking CXX executable cpp_pub[0m
+[4.631s] [ 75%] Built target cpp_pub
+[7.015s] [100%] [32m[1mLinking CXX executable cpp_sub[0m
+[7.283s] [100%] Built target cpp_sub
+[7.292s] Invoked command in '/home/yashvant/ros2_ws/build/my_cpp_pkg' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/yashvant/ros2_ws/build/my_cpp_pkg -- -j12 -l12
+[7.294s] Invoking command in '/home/yashvant/ros2_ws/build/my_cpp_pkg': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/yashvant/ros2_ws/build/my_cpp_pkg
+[7.301s] -- Install configuration: ""
+[7.301s] -- Installing: /home/yashvant/ros2_ws/install/my_cpp_pkg/lib/my_cpp_pkg/cpp_pub
+[7.303s] -- Set runtime path of "/home/yashvant/ros2_ws/install/my_cpp_pkg/lib/my_cpp_pkg/cpp_pub" to ""
+[7.303s] -- Installing: /home/yashvant/ros2_ws/install/my_cpp_pkg/lib/my_cpp_pkg/cpp_sub
+[7.305s] -- Set runtime path of "/home/yashvant/ros2_ws/install/my_cpp_pkg/lib/my_cpp_pkg/cpp_sub" to ""
+[7.305s] -- Installing: /home/yashvant/ros2_ws/install/my_cpp_pkg/share/ament_index/resource_index/package_run_dependencies/my_cpp_pkg
+[7.306s] -- Installing: /home/yashvant/ros2_ws/install/my_cpp_pkg/share/ament_index/resource_index/parent_prefix_path/my_cpp_pkg
+[7.306s] -- Installing: /home/yashvant/ros2_ws/install/my_cpp_pkg/share/my_cpp_pkg/environment/ament_prefix_path.sh
+[7.306s] -- Installing: /home/yashvant/ros2_ws/install/my_cpp_pkg/share/my_cpp_pkg/environment/ament_prefix_path.dsv
+[7.306s] -- Installing: /home/yashvant/ros2_ws/install/my_cpp_pkg/share/my_cpp_pkg/environment/path.sh
+[7.306s] -- Installing: /home/yashvant/ros2_ws/install/my_cpp_pkg/share/my_cpp_pkg/environment/path.dsv
+[7.306s] -- Installing: /home/yashvant/ros2_ws/install/my_cpp_pkg/share/my_cpp_pkg/local_setup.bash
+[7.306s] -- Installing: /home/yashvant/ros2_ws/install/my_cpp_pkg/share/my_cpp_pkg/local_setup.sh
+[7.306s] -- Installing: /home/yashvant/ros2_ws/install/my_cpp_pkg/share/my_cpp_pkg/local_setup.zsh
+[7.306s] -- Installing: /home/yashvant/ros2_ws/install/my_cpp_pkg/share/my_cpp_pkg/local_setup.dsv
+[7.306s] -- Installing: /home/yashvant/ros2_ws/install/my_cpp_pkg/share/my_cpp_pkg/package.dsv
+[7.307s] -- Installing: /home/yashvant/ros2_ws/install/my_cpp_pkg/share/ament_index/resource_index/packages/my_cpp_pkg
+[7.307s] -- Installing: /home/yashvant/ros2_ws/install/my_cpp_pkg/share/my_cpp_pkg/cmake/my_cpp_pkgConfig.cmake
+[7.307s] -- Installing: /home/yashvant/ros2_ws/install/my_cpp_pkg/share/my_cpp_pkg/cmake/my_cpp_pkgConfig-version.cmake
+[7.307s] -- Installing: /home/yashvant/ros2_ws/install/my_cpp_pkg/share/my_cpp_pkg/package.xml
+[7.310s] Invoked command in '/home/yashvant/ros2_ws/build/my_cpp_pkg' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/yashvant/ros2_ws/build/my_cpp_pkg

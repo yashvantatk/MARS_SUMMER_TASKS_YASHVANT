@@ -1,0 +1,6 @@
+{
+  "package_name": "summer_task_interfaces",
+  "non_idl_tuples": [
+    "/home/yashvant/ros2_ws/src/summer_task_interfaces:action/ExecuteCircle.action"
+  ]
+}

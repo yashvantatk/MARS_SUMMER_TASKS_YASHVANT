@@ -15,17 +15,21 @@ This repository contains my first ROS 2 workspace, created for Summer Task 1. It
 * Using `colcon build` and sourcing the workspace environment.
 * Utilizing ROS 2 CLI tools to debug and visualize node networks.
 
+---
+
 ## EXTRA TASK
 ### Topics vs Services
 Topics (Publisher/Subscriber): Used for continuous, one-way data streams where the publisher simply broadcasts information without worrying about who is listening. In this workspace, I used Topics to constantly stream the Ares-Nova rover's telemetry pings.
 
 Services (Client/Service): Used for synchronous, two-way "call-and-response" interactions. A client sends a specific request and waits for a reply before moving on. I implemented a Service to securely toggle the rover's autonomous driving mode, ensuring the system confirmed the mode change.
 
+---
+
 # Summer Task 2: ROS 2 Autonomous Navigation & Obstacle Avoidance
 
 This repository contains the implementation of a custom ROS 2 (Humble) navigation stack utilizing Turtlesim. It demonstrates foundational autonomous behavior, including real-time sensor data processing, dynamic parameter tuning, and precision navigation using custom Action Servers and Multi-Threaded Executors.
 
-## Prt 1: Project Structure
+## Part 1: Project Structure
 
 The workspace is divided into two primary packages:
 * **`summer_task_interfaces`**: A CMake package containing the custom Action definitions (`ExecuteCircle.action`).
@@ -45,54 +49,62 @@ A custom Action Server/Client architecture for long-running, preemptable navigat
 * **Multi-Threaded Execution:** Utilizes a `MultiThreadedExecutor` and `ReentrantCallbackGroup` to process continuous `/turtle1/pose` telemetry *while* executing the heavy while-loop of the Action goal, preventing node blindness.
 * **Abortion Management:** If the requested patrol radius forces the robot into the boundary danger zone, the Action Server immediately halts the motors, sets the action state to `ABORTED`, and returns a failure report to the client.
 
----
-
 ## Build Instructions
 
 Ensure you have ROS 2 Humble installed. Clone this repository into your `ros2_ws/src` directory and build both packages.
 
-bash
-# 1. Navigate to your workspace
+### 1. Navigate to your workspace
+```bash
 cd ~/task_2_actions
+```
 
-# 2. Build the interfaces first
+### 2. Build the interfaces first
+```bash
 colcon build --packages-select summer_task_interfaces
+```
 
-# 3. Source the workspace
+### 3. Source the workspace
+```bash
 source install/setup.bash
+```
 
-# 4. Build the main Python package
+### 4. Build the main Python package
+```bash
 colcon build --packages-select summer_task_pkg
+```
 
-# 5. Source again
+### 5. Source again
+```bash
 source install/setup.bash
+```
 
 ## Usage and Launch
 
-Running Subtask A: Obstacle Avoidance Launch
+### Running Subtask A: Obstacle Avoidance Launch
 
 This launch file starts the simulator and the custom collision avoidance node, passing a custom safety threshold of 2.0 meters.
 
-bash
+```bash
 ros2 launch summer_task_pkg avoidance_launch.py
-
+```
 To test dynamic parameters in a new terminal: ros2 param set /collision_avoidance safety_threshold 3.0
-Running Subtask B: Action Server Patrol
+
+### Running Subtask B: Action Server Patrol
 
 To execute the precision circular patrol, you will need three separate terminals (remember to source install/setup.bash in each).
 
 Terminal 1 (Simulator):
-bash
+```bash
 ros2 run turtlesim turtlesim_node
-
+```
 Terminal 2 (Action Server):
-bash
+```bash
 ros2 run summer_task_pkg circle_patrol_server
-
+```
 Terminal 3 (Action Client):
-bash
+```bash
 ros2 run summer_task_pkg circle_patrol_client
-
+```
 The client will request a 3.0m radius goal, print live distance tracking feedback, and report success upon completing a full 360-degree loop.
 
 ## Architectural Notes: The Communication Layer
@@ -104,6 +116,8 @@ This project was built to leverage the decentralized architecture of ROS 2.
 * Nodes discover each other dynamically over the local network using the Simple Discovery Protocol (SDP) and multicast UDP.
 
 * The underlying middleware can be swapped on the fly (e.g., eProsima Fast DDS, Eclipse Cyclone DDS) by configuring the RMW_IMPLEMENTATION environment variable.
+
+---
 
 ## Part 2: Deep Dive into the Communication Layer
 
@@ -123,3 +137,110 @@ This project leverages the decentralized architecture of ROS 2. Understanding th
   * **Eclipse Cyclone DDS**
   * **RTI Connext**
 * **Switching Implementations:** The active DDS engine can be instantly changed without altering any source code by modifying the environment variable. For example: `export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp`.
+
+---
+
+# SUMMER TASK 3 - ROBOT SIMULATION SETUP
+
+## Task Overview
+* **URDF/Xacro:** Designed a central chassis (blue box) with 4 continuous wheels (black cylinders) including visual, collision, and inertial properties.
+* **Gazebo:** Created an SDF world with an infinite static ground plane, directional sunlight, and physics parameters.
+* **Launch File:** Wrote a Python launch script (`launch_sim.launch.py`) to initialize `robot_state_publisher`, `joint_state_publisher`, Gazebo, and the entity spawner.
+* **RVIZ2:** Visualized the generated RobotModel and the mathematical TF Tree.
+
+## Package Structure
+```text
+my_robot_package/
+├── CMakeLists.txt         # Configured to install launch, description, worlds, and rviz folders
+├── package.xml
+├── .gitignore             # Ignores ROS 2 build files (build/, install/, log/, __pycache__)
+├── description/
+│   └── robot.urdf.xacro   # The Ares-Nova robot blueprint (with dummy_root KDL fix)
+├── launch/
+│   └── launch_sim.launch.py # Master launch file
+├── worlds/
+│   └── world.sdf          # The Gazebo simulation environment
+└── rviz/                  # (Optional) Saved RVIZ configuration files
+```
+
+## Dependencies & Installation commands
+
+**1. Install Gazebo Ignition (Fortress):**
+```bash
+sudo sh -c 'echo "deb [http://packages.osrfoundation.org/gazebo/ubuntu-stable](http://packages.osrfoundation.org/gazebo/ubuntu-stable) `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
+wget [http://packages.osrfoundation.org/gazebo.key](http://packages.osrfoundation.org/gazebo.key) -O - | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install libignition-gazebo6-dev ignition-fortress
+```
+
+**2.Install Ros2 Packages & Bridges:**
+```bash
+# Xacro parser
+sudo apt install ros-humble-xacro
+
+# ROS-Ignition Bridge (allows ROS to talk to Gazebo)
+sudo apt install ros-humble-ros-ign
+
+# State Publishers (for TF Trees)
+sudo apt install ros-humble-joint-state-publisher ros-humble-robot-state-publisher
+```
+
+## Workspace Setup & Build Commands
+
+**1.Creating workspace and package:**
+```bash
+mkdir -p ~/ros2_ws/src
+cd ~/ros2_ws/src
+ros2 pkg create --build-type ament_cmake my_robot_package
+cd my_robot_package
+mkdir description worlds launch rviz
+touch .gitignore
+```
+
+**2.Build and Source**
+```bash
+mkdir -p ~/ros2_ws/src
+cd ~/ros2_ws/src
+ros2 pkg create --build-type ament_cmake my_robot_package
+cd my_robot_package
+mkdir description worlds launch rviz
+touch .gitignore
+```
+
+**3.Clean Build(in case of any error)**
+```bash
+cd ~/ros2_ws
+rm -rf build install log
+colcon build
+source install/setup.bash
+```
+
+## Running the Simulation
+
+**Step 1: Launch Gazebo**
+```bash
+cd ~/ros2_ws
+source install/setup.bash
+ros2 launch my_robot_package launch_sim.launch.py
+```
+
+**Step 2: Visualize TF Tree in RVIZ2**
+```bash
+cd ~/ros2_ws
+source install/setup.bash
+rviz2
+```
+
+**RVIZ Configuration Steps:**
+1.Set Fixed Frame to dummy_root.
+2.Click Add -> Select RobotModel.
+3.Expand RobotModel -> Set Description Topic to /robot_description.
+4.Click Add -> Select TF (adjust Marker Scale to 0.3 if arrows are too large).
+
+## Development Notes
+
+- CMakeLists.txt Trick: Always ensure the install(DIRECTORY ...) block is added at the bottom of the CMake file before ament_package(), otherwise ROS will not copy your folders into the build.
+
+- The KDL Inertia Bug: If the wheels fail to spawn and terminal throws a "KDL does not support a root link with an inertia" error, a weightless <link name="dummy_root"/> attached via a fixed joint to the base_link must be added to the top of the URDF.
+
+---

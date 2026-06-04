@@ -1,0 +1,4 @@
+source;share/summer_task_interfaces/local_setup.bash
+source;share/summer_task_interfaces/local_setup.dsv
+source;share/summer_task_interfaces/local_setup.sh
+source;share/summer_task_interfaces/local_setup.zsh
