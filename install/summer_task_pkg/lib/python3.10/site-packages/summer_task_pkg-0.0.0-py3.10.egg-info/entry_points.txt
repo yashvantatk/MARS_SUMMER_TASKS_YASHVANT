@@ -1,5 +1,0 @@
-[console_scripts]
-circle_patrol_client = summer_task_pkg.circle_patrol_client:main
-circle_patrol_server = summer_task_pkg.circle_patrol_server:main
-collision_avoidance_node = summer_task_pkg.collision_avoidance_node:main
-

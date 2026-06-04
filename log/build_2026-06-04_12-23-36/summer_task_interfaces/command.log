@@ -1,6 +1,0 @@
-Invoking command in '/home/yashvant/ros2_ws/build/summer_task_interfaces': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/yashvant/ros2_ws/src/summer_task_interfaces -DCMAKE_INSTALL_PREFIX=/home/yashvant/ros2_ws/install/summer_task_interfaces
-Invoked command in '/home/yashvant/ros2_ws/build/summer_task_interfaces' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/yashvant/ros2_ws/src/summer_task_interfaces -DCMAKE_INSTALL_PREFIX=/home/yashvant/ros2_ws/install/summer_task_interfaces
-Invoking command in '/home/yashvant/ros2_ws/build/summer_task_interfaces': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/yashvant/ros2_ws/build/summer_task_interfaces -- -j12 -l12
-Invoked command in '/home/yashvant/ros2_ws/build/summer_task_interfaces' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/yashvant/ros2_ws/build/summer_task_interfaces -- -j12 -l12
-Invoking command in '/home/yashvant/ros2_ws/build/summer_task_interfaces': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/yashvant/ros2_ws/build/summer_task_interfaces
-Invoked command in '/home/yashvant/ros2_ws/build/summer_task_interfaces' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/yashvant/ros2_ws/build/summer_task_interfaces
