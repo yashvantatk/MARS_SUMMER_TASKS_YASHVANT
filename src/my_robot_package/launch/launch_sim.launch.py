@@ -27,14 +27,7 @@ def generate_launch_description():
         package='robot_state_publisher',
         executable='robot_state_publisher',
         output='screen',
-        parameters=[robot_desc]
-    )
-
-    # Joint State Publisher 
-    node_joint_state_publisher = Node(
-        package='joint_state_publisher',
-        executable='joint_state_publisher',
-        output='screen'
+        parameters=[robot_desc, {'use_sim_time': True}]
     )
 
     # ==============================================
@@ -45,7 +38,7 @@ def generate_launch_description():
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
             get_package_share_directory('ros_ign_gazebo'), 'launch', 'ign_gazebo.launch.py')]),
-        launch_arguments={'ign_args': world_file}.items()
+        launch_arguments={'ign_args': '-r ' + world_file}.items()
     )
 
     # Spawn the robot into the Gazebo world using the blueprint
@@ -55,13 +48,49 @@ def generate_launch_description():
         arguments=['-topic', 'robot_description', '-name', 'my_rover'],
         output='screen'
     )
-
+    
     # ==============================================
-    # 4. ACTION! (Run everything at once)
+    # 4. THE DATA BRIDGE (Translating Gazebo -> ROS)
+    # ==============================================
+    
+    # We are bridging three topics: The Lidar scan, the Camera image, and the IMU data.
+    # The syntax is: /gazebo_topic@ROS_Message_Type@/ros_topic
+    
+    # We are bridging three topics plus the Simulation Clock
+    bridge = Node(
+        package='ros_ign_bridge',
+        executable='parameter_bridge',
+        arguments=[
+            '/scan@sensor_msgs/msg/LaserScan@ignition.msgs.LaserScan',
+            '/camera/image_raw@sensor_msgs/msg/Image@ignition.msgs.Image',
+            '/imu/data@sensor_msgs/msg/Imu@ignition.msgs.IMU',
+            '/clock@rosgraph_msgs/msg/Clock[ignition.msgs.Clock'
+        ],
+        output='screen'
+    )
+    
+    # Wakes up the state broadcaster
+    joint_state_broadcaster_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["joint_state_broadcaster"],
+    )
+
+    # Wakes up the arm motor
+    arm_controller_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["arm_controller"],
+    )
+    
+    # ==============================================
+    # 5. ACTION! (Run everything at once)
     # ==============================================
     return LaunchDescription([
         node_robot_state_publisher,
-        node_joint_state_publisher,
         gazebo,
-        spawn_entity
+        spawn_entity,
+        bridge,
+        joint_state_broadcaster_spawner,
+        arm_controller_spawner
     ])

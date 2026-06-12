@@ -28,6 +28,7 @@ install(DIRECTORY
   description
   worlds
   rviz
+  config
   DESTINATION share/${PROJECT_NAME}
 )
 ament_package()

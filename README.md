@@ -244,3 +244,39 @@ rviz2
 - The KDL Inertia Bug: If the wheels fail to spawn and terminal throws a "KDL does not support a root link with an inertia" error, a weightless <link name="dummy_root"/> attached via a fixed joint to the base_link must be added to the top of the URDF.
 
 ---
+
+# Summer Task 4: ROS 2 & Gazebo Robot Simulation
+
+## Overview
+This package contains a fully functional URDF robot model (`my_rover`) simulated in Ignition Gazebo. The robot is equipped with a camera, Lidar, and IMU, and utilizes `ros2_control` to actuate a robotic arm via a remote control interface.
+
+## Prerequisites
+Ensure the necessary ROS 2 Humble control packages are installed:
+```bash
+sudo apt install ros-humble-ros2-control ros-humble-ros2-controllers ros-humble-ign-ros2-control ros-humble-rqt-joint-trajectory-controller
+```
+
+## Steps to run the simulation
+
+**1.  Build Workspace**
+```bash
+cd ~/ros2_ws
+colcon build --packages-select my_robot_package
+source install/setup.bash
+```
+
+**2. Launch Gazebo and Rviz2**
+
+Create a launch file. This single launch file spawns the robot in Gazebo, auto-starts the physics engine, bridges all sensor data, and wakes up the ros2_control nervous system:
+```bash
+ros2 launch my_robot_package launch_sim.launch.py
+```
+
+**3. Launch the remote ARM CONTROL**
+To move the robotic arm, open a new terminal and launch the RQT controller.
+Note: The --ros-args -p use_sim_time:=true flag is required to sync the controller's clock with Gazebo.
+```bash
+source ~/ros2_ws/install/setup.bash
+ros2 run rqt_joint_trajectory_controller rqt_joint_trajectory_controller --ros-args -p use_sim_time:=true
+```
+---
