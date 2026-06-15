@@ -26,7 +26,7 @@
   </link>
 
 
-  <xacro:macro name="wheel" params="prefix x_reflect y_reflect">
+<xacro:macro name="wheel" params="prefix x_reflect y_reflect">
     
     <link name="${prefix}_wheel">
       <visual>
@@ -49,8 +49,10 @@
       <axis xyz="0 0 1"/>
     </joint>
 
-  </xacro:macro>
+    <gazebo reference="${prefix}_wheel">
+      <mu1>1.0</mu1> <mu2>0.05</mu2> </gazebo>
 
+  </xacro:macro>
 
   <xacro:wheel prefix="front_left" x_reflect="1" y_reflect="1" />
   <xacro:wheel prefix="front_right" x_reflect="1" y_reflect="-1" />
@@ -183,6 +185,23 @@
       <update_rate>100.0</update_rate>
       <visualize>true</visualize>
     </sensor>
+  </gazebo>
+  
+  <gazebo>
+    <plugin filename="libignition-gazebo-diff-drive-system.so" name="ignition::gazebo::systems::DiffDrive">
+      <left_joint>front_left_wheel_joint</left_joint>
+      <left_joint>rear_left_wheel_joint</left_joint>
+      <right_joint>front_right_wheel_joint</right_joint>
+      <right_joint>rear_right_wheel_joint</right_joint>
+
+      <wheel_separation>0.35</wheel_separation>
+      <wheel_radius>0.1</wheel_radius>
+
+      <topic>cmd_vel</topic>
+      <odom_publish_frequency>50</odom_publish_frequency>
+      <frame_id>odom</frame_id>
+      <child_frame_id>base_link</child_frame_id>
+    </plugin>
   </gazebo>
   
   <ros2_control name="IgnitionSystem" type="system">

@@ -64,7 +64,8 @@ def generate_launch_description():
             '/scan@sensor_msgs/msg/LaserScan@ignition.msgs.LaserScan',
             '/camera/image_raw@sensor_msgs/msg/Image@ignition.msgs.Image',
             '/imu/data@sensor_msgs/msg/Imu@ignition.msgs.IMU',
-            '/clock@rosgraph_msgs/msg/Clock[ignition.msgs.Clock'
+            '/clock@rosgraph_msgs/msg/Clock[ignition.msgs.Clock',
+            '/cmd_vel@geometry_msgs/msg/Twist]ignition.msgs.Twist'
         ],
         output='screen'
     )
