@@ -1,0 +1,22 @@
+
+    <model name="aruco_target">
+      <pose>1.5 0 0.25 0 0 0</pose> 
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>0.01 0.4 0.4</size></box></geometry> 
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <pbr>
+              <metal>
+                <albedo_map>/home/yashvant/ros2_ws/src/my_robot_opencv_package/worlds/aruco_marker.png</albedo_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>0.01 0.4 0.4</size></box></geometry>
+        </collision>
+      </link>
+    </model>

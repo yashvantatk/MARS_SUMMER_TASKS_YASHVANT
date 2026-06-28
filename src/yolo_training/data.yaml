@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 5
+names: ['Blue_cone', 'Green_cone', 'Orange_cone', 'Red_cone', 'Yellow_cone']
+
+roboflow:
+  workspace: yashvant-a-t-k
+  project: ares-nova-vision-cones
+  version: dataset
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/yashvant-a-t-k/ares-nova-vision-cones/dataset/dataset

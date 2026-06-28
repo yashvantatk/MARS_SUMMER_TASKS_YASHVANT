@@ -280,3 +280,120 @@ source ~/ros2_ws/install/setup.bash
 ros2 run rqt_joint_trajectory_controller rqt_joint_trajectory_controller --ros-args -p use_sim_time:=true
 ```
 ---
+
+Task 5: Ares-Nova Autonomous Rover - Unified Visual Cortex Integration
+=============================================================================
+
+Task OverviewThis repository contains the ROS 2 (Humble) packages and computer vision scripts for the Ares-Nova rover. The core objective of this phase was to build a "Unified Visual Cortex" — a single ROS 2 node capable of running a custom-trained YOLOv8 neural network to detect specific traffic cones, while simultaneously utilizing OpenCV to detect ArUco markers and calculate their exact Z-depth distance in 3D space.
+
+1.  Process Flow (How it was built)
+    
+
+Phase 1: Environment Setup
+
+*   Configured a custom Gazebo Ignition simulation world containing the Ares-Nova rover and camera sensors.
+    
+*   Created a Python script to forge custom 3D geometric cone meshes (.obj and .mtl files) since Gazebo lacks a built-in cone primitive.
+    
+
+Phase 2: Data Collection
+
+*   Engineered a ROS 2 camera subscriber node (aruco\_detector.py) with a manual snapshot feature.
+    
+*   Drove the rover through the Gazebo world to capture 40+ synthetic images of the custom colored cones under simulation lighting.
+    
+
+Phase 3: AI Training
+
+*   Annotated the dataset in Roboflow (Red, Green, Blue, Yellow, Orange cones).
+    
+*   Trained the YOLOv8 Nano model locally utilizing an RTX 4050 GPU for 50 epochs, achieving a 99.5% mAP50 accuracy.
+    
+
+Phase 4: Sensor Fusion
+
+*   Transplanted the compiled AI weights (best.pt) into the ROS 2 package.
+    
+*   Developed the master\_vision.py node to bridge the Gazebo camera feed to OpenCV, pass the frames through the YOLOv8 model, overlay the ArUco geometry math, and publish the final annotated video feed.
+    
+
+1.  File Structure & Contents
+    
+
+*   launch/launch\_sim.launch.py: The master launch file. Boots up Gazebo Ignition, spawns the Ares-Nova rover, starts the robot\_state\_publisher, and bridges the ROS 2 / Gazebo message topics.
+    
+*   worlds/world.sdf: The 3D simulation environment file containing the lighting, physics properties, and the precise spawn coordinates for the geometric cones.
+    
+*   worlds/make\_cone.py: A custom Python geometry script that mathematically generates the vertices, faces, and light-bouncing normal vectors for the 3D cone meshes, exporting them as .obj and .mtl files.
+    
+*   scripts/aruco\_detector.py: A foundational computer vision node that subscribes to the rover's camera, detects ArUco markers, calculates 3D pose estimation (X, Y, Z distance), and includes a keystroke-triggered dataset collection tool.
+    
+*   scripts/cone\_detector.py: A standalone YOLOv8 inference node used to verify that the neural network was correctly identifying bounding boxes before attempting sensor fusion.
+    
+*   scripts/master\_vision.py: The core "Unified Visual Cortex" node. It ingests the raw Gazebo camera feed, runs YOLOv8 to map bounding boxes around colored cones, and simultaneously runs OpenCV pose estimation to draw distance vectors on ArUco markers, displaying the fused result in a single live window.
+    
+*   cone\_model.pt: The fully trained PyTorch neural network weights for the custom cone dataset.
+    
+*   CMakeLists.txt & package.xml: The ament\_cmake build system configurations required to compile the C++ environment while successfully installing and mapping the Python scripts into the ROS 2 executable paths.
+    
+
+1.  Obstacles Faced & Engineering Solutions
+    
+
+Obstacle 1: The NumPy 2.0 Dependency Trap
+
+*   Issue: Ultralytics (YOLO) auto-installed the absolute newest versions of NumPy (2.2) and OpenCV, causing fatal crashes with Ubuntu's built-in Matplotlib library which required NumPy 1.x.
+    
+*   Solution: Surgically downgraded both NumPy (<2.0.0) and OpenCV-Python (<4.10) to stabilize the environment and synchronize the math libraries.
+    
+
+Obstacle 2: Gazebo SDF Primitive Limitations
+
+*   Issue: Attempted to use the tag in the world.sdf file, resulting in a "Geometry type \[0\] not supported" error.
+    
+*   Solution: Discovered Gazebo SDF does not have a cone primitive. Wrote a Python script to mathematically forge a 16-sided custom .obj mesh.
+    
+
+Obstacle 3: The Physics Engine Segfault
+
+*   Issue: When importing the custom .obj file, the DART physics engine crashed entirely (Segmentation fault).
+    
+*   Solution: Learned the industry standard of separating visuals from collisions. Updated the SDF file so the tag uses the complex .obj mesh (for the camera to see), but the tag uses a simple, crash-proof primitive for the physics engine to calculate impacts.
+    
+
+Obstacle 4: The Unshaded Mesh Phenomenon
+
+*   Issue: The custom 3D cones rendered completely white in Gazebo, ignoring the SDF color tags.
+    
+*   Solution: Learned that Gazebo's Ogre2 rendering engine requires custom .obj files to bring their own Material Template Library (.mtl) files. Rewrote the mesh generation script to bake the RGB colors directly into paired .mtl files.
+    
+
+Obstacle 5: Corrupted Checkpoint Fallback
+
+*   Issue: A KeyboardInterrupt (Ctrl+C) corrupted the YOLO training checkpoint. When attempting to resume, YOLO defaulted to the standard COCO8 dataset, resulting in the AI learning to identify horses and dogs instead of traffic cones.
+    
+*   Solution: Wiped the corrupted run directories, purged the COCO8 dataset, and initiated a strict, clean training loop using the custom data.yaml file.
+    
+
+1.  Key Things Learned
+    
+
+*   ROS 2 Package Architecture: Deepened understanding of the ament\_cmake build system, specifically how Python nodes must be housed in a scripts/ folder, made executable via chmod, and explicitly linked in the CMakeLists.txt file.
+    
+*   Neural Network Training Loop: Mastered the end-to-end pipeline of synthetic dataset generation, Roboflow annotation, PyTorch/YOLOv8 hardware acceleration on an RTX GPU, and metric analysis (mAP50).
+    
+*   Sensor Fusion: Successfully combined deep learning (YOLO pixel classification) with classic computer vision geometry (ArUco pose estimation) on a single asynchronous ROS 2 image callback.
+    
+*   Simulation Engine Mechanics: Gained a low-level understanding of how Gazebo Ignition handles rendering vs. physics, specifically the importance of Vertex Normals for lighting equations and the necessity of simplifying collision meshes to prevent physics engine panics.
+    
+
+1.  Essential Bash Commands (Cheat Sheet)
+    
+
+Workspace Compilation & SetupClean build cache: rm -rf ~/ros2\_ws/build/ ~/ros2\_ws/install/ ~/ros2\_ws/log/Build specific package: colcon build --packages-select my\_robot\_opencv\_packageSource the workspace: source ~/ros2\_ws/install/setup.bash
+
+Node ExecutionLaunch Gazebo Simulation: ros2 launch my\_robot\_opencv\_package launch\_sim.launch.pyRun Dataset Collector: ros2 run my\_robot\_opencv\_package aruco\_detector.py --ros-args -p use\_sim\_time:=trueRun Unified Visual Cortex: ros2 run my\_robot\_opencv\_package master\_vision.py --ros-args -p use\_sim\_time:=true
+
+File & Permissions ManagementMake scripts executable: chmod +x ~/ros2\_ws/src/my\_robot\_opencv\_package/scripts/_.pyTransfer generated meshes: mv ~/_\_cone.obj ~/\*\_cone.mtl ~/ros2\_ws/src/my\_robot\_opencv\_package/worlds/Transplant AI weights: cp ~/ros2\_ws/src/yolo\_training/runs/detect/train/weights/best.pt ~/ros2\_ws/src/my\_robot\_opencv\_package/cone\_model.pt
+
+YOLOv8 AI TrainingClear corrupted training cache: rm -rf ~/ros2\_ws/src/yolo\_training/runs/detect/train\*Start RTX GPU Training: yolo task=detect mode=train model=yolov8n.pt data=data.yaml epochs=50 imgsz=640 device=0
